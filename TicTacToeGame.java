@@ -19,7 +19,7 @@ class TicTacToeGame {
 	}
 	
 	public static void choice() {
-	     Scanner s=new Scanner(System.in);
+		Scanner s=new Scanner(System.in);
 	     System.out.println(" Enter 1 to choose X\n Enter 2 to choose O");
 
 		 int n=s.nextInt();
@@ -43,12 +43,24 @@ class TicTacToeGame {
 	}
 	
 	public static void main(String[] args) {
-	     board = new char[3][3];
+		Scanner s=new Scanner(System.in);
+		board = new char[3][3];
 		 initializeBoard ();
 		 
 	     System.out.println("Welcome to TicTacToe Game");
 		 choice ();
 		 printboard();
-	}
+	     
+		 System.out.println("Enter the position you want to fill:b/w (1-9)");
+		 int pos=s.nextInt();
+		 
+		 if((pos > 0) && (pos<=9))
+          System.out.println(pos);
+          else
+            System.out.println("Invalid Input!");
+	
+	}	 
+	
+	
 }
 
