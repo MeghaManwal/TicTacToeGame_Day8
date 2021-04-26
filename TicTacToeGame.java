@@ -103,8 +103,34 @@ class TicTacToeGame {
 			    break;
 		}
    }
+	
+	 public static String checkWinner() {
+			
+			List <List<Integer>> win=new ArrayList<List<Integer>>();
+			win.add(Arrays.asList(1,2,3));
+			win.add(Arrays.asList(4,5,6));
+			win.add(Arrays.asList(7,8,9));
+			win.add(Arrays.asList(1,4,7));
+			win.add(Arrays.asList(2,5,8));
+			win.add(Arrays.asList(3,6,9));
+			win.add(Arrays.asList(1,5,9));
+			win.add(Arrays.asList(3,5,7));
+			
+			for(List<Integer>l : win) {
+				if (playerpositions.containsAll(l)) {
+					return "Congratulation! You Won";
+				}
+				else if (CPUpositions.containsAll(l)) {
+					return "CPU wins! Sorry ";
+				}
+				else if(playerpositions.size() + CPUpositions.size() == 9) {
+					return "It's a Draw!";
+				}
+			 }
+			return "";
+	   }
+
 	public static void main(String[] args) {
-		//Scanner s=new Scanner(System.in);
 		
 		 char [][] gameboard= {{' ', '|', ' ', '|',' '},
 				 				{'+', '-', '+', '-', '+'},
@@ -125,6 +151,7 @@ class TicTacToeGame {
 		 }
 		 placepiece(gameboard, playerplacement, "Player");
 		 printGameBoard(gameboard);
+		 String result=checkWinner();
 		 
 		 int cpuPlacement=(int)Math.floor((Math.random()*10) % 9)+ 1;
 		 while(playerpositions.contains(cpuPlacement) || CPUpositions.contains(cpuPlacement)) {
@@ -133,6 +160,7 @@ class TicTacToeGame {
 		 }
 		 placepiece(gameboard, cpuPlacement, "cpu");
 		 printGameBoard(gameboard);
+		 result=checkWinner();
 	}	 	
 }
 
