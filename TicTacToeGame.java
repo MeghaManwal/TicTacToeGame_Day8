@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 class TicTacToeGame {
 	
-	public static String  player;
-	public static int playerSymbol;
+	public static int player1Symbol;
 	public static ArrayList<Integer> playerpositions=new ArrayList<Integer>();
 	public static ArrayList<Integer> CPUpositions=new ArrayList<Integer>();
+	public static String  player1;
+	public static String  player2;
 	
 	public static void initializeBoard() {
 		for (int i=0;i<5;i++) 
@@ -27,53 +28,58 @@ class TicTacToeGame {
 		     System.out.print(gameboard[i][j]);
 		    }
 		   System.out.println();
-			  }
-	}
-	
-	public static void TicTacToe(){
-		  Scanner s = new Scanner(System.in);
-		  
-		  System.out.println("Enter Your Name : ");
-		     player = s.nextLine();
-		  System.out.println("Enter the choice for the symbol \n 1 . 'X' \n 2. 'O' \n\t\t : ");
-		     playerSymbol = s.nextInt();
-		  while(playerSymbol >2 || playerSymbol <=0) {
-		     if(playerSymbol == 1 || playerSymbol == 2) {
-		       playerSymbol = s.nextInt();
-		      }
-		      else {
-		    	System.out.println("Wrong choice :( \n ");
-		    	 System.out.println("Please select \n 1 . 'X' \n 2. 'O' \t : ");
-		    	  playerSymbol = s.nextInt();
-		       }
-		    }
+		  }
 	 }
 	
-	public static void placepiece(char[][] gameboard, int place, String user) {
+	public static void TicTacToe(){
+		Scanner s = new Scanner(System.in);
+	    System.out.println("Enter Your Name Player1 : ");
+	     	 player1 = s.nextLine();
+		System.out.println("Enter Your Name Player2 : ");
+		     player2 = s.nextLine();
+	    System.out.println("Enter the choice for the symbol Player 1 \n 1 . 'X' \n 2. 'O' \n\t\t : ");
+	      player1Symbol = s.nextInt();
+	    while(player1Symbol >2 || player1Symbol <=0) {
+	    	 if(player1Symbol == 1 || player1Symbol == 2) {
+	    		  player1Symbol = s.nextInt();
+	    	 }
+	    	 else {
+	    		 System.out.println("Wrong choice :( \n ");
+	    		 System.out.println("Please select \n 1 . 'X' \n 2. 'O' \t : ");
+	    		 player1Symbol = s.nextInt();
+	    	 }
+	     }
+      }
+
+	
+	  public static void placepiece(char[][] gameboard, int place, String user) {
 		char symbol;
-		char cpuSign;
-		char userSign;
+		char Player2Sign;
+		char Player1Sign;
 		
-		if(playerSymbol == 1) {
-			cpuSign = 'O';
-			userSign = 'X';
+		if(player1Symbol == 1) {
+			Player2Sign = 'O';
+			Player1Sign = 'X';
 		} 
 	    else {
-		    cpuSign = 'X';
-			userSign = 'O';
+	    	Player2Sign = 'X';
+	    	Player1Sign = 'O';
 		}
-		if(user.equals("cpu")) {
-			symbol = cpuSign;
-			CPUpositions.add(place);
-			System.out.println("\n Cpu placed  at " + place + "\n");
+		
+		
+		if(user.equals(player2)) {
+			symbol = Player2Sign;
+			player2positions.add(place);
+			System.out.println("\n"+ player2 +" placed  at " + place + "\n");
 		} 
 		else {
-			symbol = userSign;
-			playerpositions.add(place);
-			System.out.println("\n" + user + " Placed at " + place + "\n");
+			symbol = Player1Sign;
+			player1positions.add(place);
+			System.out.println("\n" + player1 + " placed at " + place + "\n");
 	    }
 		
-		switch(place) {
+		
+	    switch(place) {
 			case 1:
 				gameboard[0][0]=symbol;
 			    break;
@@ -102,7 +108,8 @@ class TicTacToeGame {
 				gameboard[4][4]=symbol;
 			    break;
 		}
-   }
+      }
+
 	
 	 public static String checkWinner() {
 			
@@ -130,7 +137,7 @@ class TicTacToeGame {
 			return "";
 	   }
 
-	public static void main(String[] args) {
+	   public static void main(String[] args) {
 		
 		 char [][] gameboard= {{' ', '|', ' ', '|',' '},
 				 				{'+', '-', '+', '-', '+'},
@@ -142,25 +149,44 @@ class TicTacToeGame {
 		 TicTacToe();
 		 
 		 Scanner sc=new Scanner(System.in);
-		 
-		 System.out.println("Enter the position:(1-9): ");
-		 int playerplacement=sc.nextInt();
-		 while(playerpositions.contains(playerplacement) || CPUpositions.contains(playerplacement)) {	
-		  System.out.println("Position Taken! Enter a correct position");
-		  playerplacement=sc.nextInt();
-		 }
-		 placepiece(gameboard, playerplacement, "Player");
-		 printGameBoard(gameboard);
-		 String result=checkWinner();
-		 
-		 int cpuPlacement=(int)Math.floor((Math.random()*10) % 9)+ 1;
-		 while(playerpositions.contains(cpuPlacement) || CPUpositions.contains(cpuPlacement)) {
-		  System.out.println("Position Taken! Enter a correct position");
-		  cpuPlacement=(int)Math.floor((Math.random()*10) % 9)+ 1;			
-		 }
-		 placepiece(gameboard, cpuPlacement, "cpu");
-		 printGameBoard(gameboard);
-		 result=checkWinner();
-	}	 	
+			
+			System.out.println("Enter the position:(1-9): ");
+			int player1placement=sc.nextInt();
+			while(player1positions.contains(player1placement) || player2positions.contains(player1placement)) {	
+				System.out.println("Position Taken! Enter a correct position");
+				player1placement=sc.nextInt();
+			 }
+				String result=checkWinner();
+				if(result.length() > 0) {
+					System.out.println(result);
+					break;
+			     }
+				placepiece(gameboard, player1placement, player1);
+				printGameBoard(gameboard);
+				result=checkWinner();
+				if(result.length() > 0) {
+					System.out.println(result);
+					break;
+				}
+					
+			System.out.println("Enter the position:(1-9): ");	
+			int player2placement=sc.nextInt();
+			while(player1positions.contains(player2placement) || player2positions.contains(player2placement)) {
+				System.out.println("Position Taken! Enter a correct position");	
+				player2placement=sc.nextInt();
+		    }
+				result=checkWinner();
+				if(result.length() > 0) {
+					System.out.println(result);
+					break;
+				 }
+				placepiece(gameboard, player2placement, player2);
+				printGameBoard(gameboard);
+				result=checkWinner();
+				if(result.length() > 0) {
+				   System.out.println(result);
+				   break;
+				 }
+	     }	 	
 }
 
