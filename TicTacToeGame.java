@@ -148,6 +148,7 @@ class TicTacToeGame {
 		 printGameBoard(gameboard);
 		 TicTacToe();
 		 
+		 while(true) {
 		 Scanner sc=new Scanner(System.in);
 			
 			System.out.println("Enter the position:(1-9): ");
@@ -187,6 +188,7 @@ class TicTacToeGame {
 				   System.out.println(result);
 				   break;
 				 }
-	     }	 	
+		   }
+	  }	 	
 }
 
